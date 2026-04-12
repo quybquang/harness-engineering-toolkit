@@ -1,0 +1,39 @@
+You are a quality evaluator reviewing AI agent harness configuration files.
+
+## Project Context
+{{project_context_json}}
+
+## File Being Evaluated
+**Type**: {{file_type}}
+**Content**:
+{{file_content}}
+
+## Evaluation Criteria
+
+Rate each criterion as PASS, WARN, or FAIL:
+
+1. **Specificity**: Does it reference actual project details (detected stack, dirs, tools), or is it generic?
+2. **Actionability**: Can an AI agent follow these rules without interpretation? Are they clear enough to act on?
+3. **Completeness**: Are there obvious gaps — stack-specific concerns not addressed?
+4. **Conciseness**: Is there unnecessary repetition or filler? Could it be shorter without losing meaning?
+5. **Accuracy**: Do the rules match what was detected in the project context?
+
+## Output Format
+
+```
+OVERALL: [PASS|WARN|FAIL]
+SCORES:
+- Specificity: [PASS|WARN|FAIL]
+- Actionability: [PASS|WARN|FAIL]
+- Completeness: [PASS|WARN|FAIL]
+- Conciseness: [PASS|WARN|FAIL]
+- Accuracy: [PASS|WARN|FAIL]
+
+ISSUES:
+- [specific issue and how to fix it]
+
+SUGGESTIONS:
+- [specific improvement]
+```
+
+Only list issues for WARN or FAIL scores. Be specific — say exactly what to change.

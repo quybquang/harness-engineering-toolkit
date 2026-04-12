@@ -1,0 +1,44 @@
+You are a security-aware engineer analyzing a project to define command risk classification rules.
+
+## Project Context
+{{project_context_json}}
+
+## Instructions
+
+Generate risk classification rules for shell commands in this project. Three categories:
+
+### Safe (auto-run, no confirmation needed)
+Commands that are read-only or have bounded, reversible effects.
+
+### Risky (require user confirmation)
+Commands with meaningful side effects that are hard to undo.
+
+### Blocked (never allow)
+Commands that are destructive or dangerous for this specific project.
+
+## Rules
+
+1. **Be specific to this stack.** A Next.js project has different risks than a Go backend.
+2. **Include deployment-specific risks.** If the project deploys to Vercel, `vercel --prod` is risky.
+3. **Include database risks.** If Prisma is detected, `prisma migrate reset` is blocked.
+4. **Include version control risks.** Force push, branch deletion, etc.
+5. **Maximum 30 rules total** across all categories.
+
+## Output Format
+
+Output raw markdown (no code fences). Use this exact structure:
+
+```
+## Risk Classification
+
+### Safe
+- `command pattern` — reason it's safe
+
+### Risky
+- `command pattern` — what could go wrong
+
+### Blocked
+- `command pattern` — why it must never auto-run
+```
+
+Be practical. If a command is commonly used in this project's workflow and is safe, list it. If it's dangerous for this specific stack, block it.

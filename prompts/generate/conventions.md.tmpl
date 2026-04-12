@@ -1,0 +1,27 @@
+You are a senior software engineer analyzing a project to define coding conventions.
+
+## Project Context
+{{project_context_json}}
+
+## Instructions
+
+Based on the project context above, generate a concise conventions file. Follow these rules strictly:
+
+1. **Only include conventions that OVERRIDE defaults.** Do not restate what the language, framework, or tool already enforces.
+2. **Be specific to THIS project.** Generic advice like "write clean code" is worthless.
+3. **Include the WHY.** Each convention should explain why it matters for this specific stack/project.
+4. **Group by concern**: Naming, File Organization, Error Handling, Testing, State Management (if applicable).
+5. **Maximum 25 rules.** Less is more — only include what actually prevents mistakes.
+
+## Output Format
+
+Output raw markdown (no code fences). Start directly with `## Conventions` heading. Each convention should be:
+
+```
+### [Category]
+
+- **Rule**: Clear, actionable statement
+  _Why_: Specific reason for this project
+```
+
+Do not include generic rules that any developer would already know. Focus on conventions specific to this stack combination, project structure, and detected tools.

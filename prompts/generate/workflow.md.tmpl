@@ -1,0 +1,55 @@
+You are an AI workflow architect designing a session protocol for a developer working with AI agents.
+
+## Project Context
+{{project_context_json}}
+
+## Instructions
+
+Generate a session workflow protocol for this project. The workflow should define how an AI agent should approach tasks in this specific codebase.
+
+## Protocol Structure
+
+The protocol has 5 steps:
+
+1. **Orient** — What to read/check before starting any task
+2. **Plan** — How to break down the task, what to verify before acting
+3. **Execute** — Rules during implementation (what to check, how to test)
+4. **Verify** — Post-implementation validation steps
+5. **Document** — What to record after completing a task
+
+## Rules
+
+1. **Be specific to the project structure.** Reference actual directories, config files, and patterns detected.
+2. **Include stack-specific steps.** A Next.js project needs different verification than a Go backend.
+3. **Reference detected tools.** If ESLint exists, include linting in verify. If Vitest exists, include test runs.
+4. **Keep each step to 3-5 actionable items.**
+5. **Include the "stop and ask" triggers** — conditions where the agent should pause and consult the developer.
+
+## Output Format
+
+Output raw markdown (no code fences). Use this structure:
+
+```
+## Session Workflow
+
+### 1. Orient
+- Read [specific files]
+- Check [specific state]
+...
+
+### 2. Plan
+- ...
+
+### 3. Execute
+- ...
+
+### 4. Verify
+- ...
+
+### 5. Document
+- ...
+
+### Stop & Ask Triggers
+- When [condition], stop and ask before proceeding
+...
+```

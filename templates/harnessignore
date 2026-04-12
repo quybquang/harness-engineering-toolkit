@@ -1,0 +1,39 @@
+# Harness ignore patterns
+# Files and directories to skip during project discovery
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+target/
+out/
+
+# Version control
+.git/
+
+# Infrastructure
+.terraform/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Harness internal
+.claude/harness/backup/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,130 @@
+#!/bin/sh
+# harness — CLI entry point for harness-engineering-toolkit
+# Usage: harness [command] [flags]
+set -e
+
+# ── Resolve paths ────────────────────────────────────────────────────────────
+
+# Resolve toolkit directory (follow symlinks)
+resolve_path() {
+    _path="$1"
+    while [ -L "$_path" ]; do
+        _dir=$(dirname "$_path")
+        _path=$(readlink "$_path")
+        case "$_path" in
+            /*) ;;
+            *)  _path="$_dir/$_path" ;;
+        esac
+    done
+    cd -P "$(dirname "$_path")" && pwd
+}
+
+TOOLKIT_DIR="$(resolve_path "$0")/.."
+TOOLKIT_VERSION=$(cat "$TOOLKIT_DIR/VERSION" 2>/dev/null || echo "dev")
+PROJECT_ROOT="$(pwd)"
+
+# ── Source utils ─────────────────────────────────────────────────────────────
+
+. "$TOOLKIT_DIR/lib/utils.sh"
+
+# ── Usage ────────────────────────────────────────────────────────────────────
+
+usage() {
+    cat <<EOF
+${C_BOLD}harness${C_RESET} v${TOOLKIT_VERSION} — AI Agent Harness Toolkit
+
+${C_BOLD}USAGE${C_RESET}
+    harness <command> [flags]
+
+${C_BOLD}COMMANDS${C_RESET}
+    init        Initialize harness for current project
+    update      Update existing harness after project changes
+    check       Validate current harness (no modifications)
+    eject       Remove toolkit management, inline everything
+    version     Show toolkit version
+    help        Show this help
+
+${C_BOLD}FLAGS${C_RESET}
+    --dry-run           Preview changes without writing
+    --force             Skip confirmations
+    --verbose           Detailed logging
+    --fix               Auto-fix issues (check only)
+    --json              Machine-readable output
+    --skip-questions    Use defaults for discovery questions
+    --tier=<tier>       Force tier (minimal|standard|full|enterprise)
+
+${C_BOLD}EXAMPLES${C_RESET}
+    harness init                    # Full pipeline for new project
+    harness init --dry-run          # Preview what would be generated
+    harness update                  # Update after project changes
+    harness check                   # Validate harness health
+    harness check --fix             # Auto-fix issues
+    harness eject                   # Take full ownership
+
+${C_BOLD}TIERS${C_RESET}
+    minimal     CLAUDE.md + hooks + risk rules (all projects)
+    standard    + workflow + scoped configs + Zone B state
+    full        + architecture + evaluated quality
+    enterprise  + dream consolidation + fork-join templates
+
+EOF
+}
+
+# ── Pre-flight ───────────────────────────────────────────────────────────────
+
+ensure_jq
+
+# Extract command (first non-flag argument)
+COMMAND=""
+ARGS=""
+for arg in "$@"; do
+    case "$arg" in
+        --*) ARGS="$ARGS $arg" ;;
+        *)
+            if [ -z "$COMMAND" ]; then
+                COMMAND="$arg"
+            fi
+            ;;
+    esac
+done
+
+# Parse flags
+# shellcheck disable=SC2086
+parse_flags $ARGS
+
+# Default command
+if [ -z "$COMMAND" ]; then
+    COMMAND="help"
+fi
+
+# Initialize paths
+init_paths
+
+# ── Route to command ─────────────────────────────────────────────────────────
+
+case "$COMMAND" in
+    init)
+        . "$TOOLKIT_DIR/lib/cmd-init.sh"
+        ;;
+    update)
+        . "$TOOLKIT_DIR/lib/cmd-update.sh"
+        ;;
+    check)
+        . "$TOOLKIT_DIR/lib/cmd-check.sh"
+        ;;
+    eject)
+        . "$TOOLKIT_DIR/lib/cmd-eject.sh"
+        ;;
+    version)
+        echo "harness-toolkit v${TOOLKIT_VERSION}"
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    *)
+        log_error "Unknown command: $COMMAND"
+        echo ""
+        usage
+        exit $EXIT_INPUT_ERROR
+        ;;
+esac

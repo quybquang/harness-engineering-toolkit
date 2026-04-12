@@ -1,0 +1,31 @@
+You are analyzing a project's harness configuration to extract the most critical rules.
+
+## Project Context
+{{project_context_json}}
+
+## Generated Conventions
+{{conventions_content}}
+
+## Generated Risk Rules
+{{risk_rules_content}}
+
+## Generated Workflow (if available)
+{{workflow_content}}
+
+## Instructions
+
+From all the generated harness content above, select the **3 to 5 MOST CRITICAL rules** that should always be visible in the CLAUDE.md map (the file that's always loaded into context).
+
+These are rules that:
+1. If violated, cause the most damage (data loss, broken deployment, security issue)
+2. Are counter-intuitive — an AI agent would NOT guess them from code alone
+3. Apply to the majority of tasks in this project
+
+## Output Format
+
+Output a numbered list, each rule in one clear sentence. No headers, no explanations — just the rules.
+
+Example:
+1. Never run database migrations without backing up first.
+2. All API routes must validate auth middleware — no public endpoints allowed.
+3. Run lint before commit — CI will reject unformatted code.

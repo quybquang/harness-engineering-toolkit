@@ -1,0 +1,35 @@
+You are a classification expert resolving ambiguous project tier assignment.
+
+## Project Context
+{{project_context_json}}
+
+## Current Scoring
+- Score: {{tier_score}}
+- Suggested tier: {{suggested_tier}}
+- Signals: {{tier_signals}}
+
+## Conflicts Detected
+{{conflicts}}
+
+## Tier Definitions
+- **minimal** (0-2 points): Simple project. CLAUDE.md + hooks + risk rules.
+- **standard** (3-6 points): Moderate complexity. + workflow + scoped configs + Zone B.
+- **full** (7-12 points): Complex project. + architecture notes + quality evaluation.
+- **enterprise** (13+ points): Large-scale. + dream consolidation + fork-join patterns.
+
+## Instructions
+
+Given the conflicts above, determine the correct tier. Consider:
+
+1. Is the score inflated by signals that don't actually add complexity?
+2. Is the score deflated because the project is more complex than what files show?
+3. Should the tier be adjusted up or down from the rule-based suggestion?
+
+## Output Format
+
+Respond with exactly:
+```
+TIER: [minimal|standard|full|enterprise]
+REASON: [one sentence explaining why]
+ADJUSTMENTS: [what signals were over/under-weighted]
+```
