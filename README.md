@@ -1,6 +1,12 @@
 # Harness Engineering Toolkit
 
+[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue)](VERSION)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 CLI toolkit to bootstrap and manage AI agent harness for any project, any stage.
+
+> **New to the project?** Jump to [Quick Start](#quick-start) or read the full [Usage Guide](docs/USAGE.md).
 
 ## What is Harness Engineering?
 
@@ -44,22 +50,27 @@ Analogy: Agent = brain. Harness = nervous system.
 ## Quick Start
 
 ```bash
-# Install
-git clone <repo> ~/tools/harness-engineering-toolkit
+# 1. Install the toolkit
+git clone https://github.com/OWNER/REPO.git ~/tools/harness-engineering-toolkit
 cd ~/tools/harness-engineering-toolkit
 ./install.sh
 
-# Init harness for a project
+# 2. Go to any project
 cd ~/my-project
+
+# 3. Preview what would be generated (safe — no file writes)
+harness init --dry-run
+
+# 4. Initialize harness
 harness init
 
-# Check harness health
+# 5. Check health
 harness check
 
-# Update after project changes
+# 6. Update after project changes
 harness update
 
-# Eject (take ownership)
+# 7. Opt out of toolkit management anytime
 harness eject
 ```
 
@@ -136,5 +147,31 @@ discover (script) → classify (script+LLM) → generate (LLM) → write (script
 
 ## Requirements
 
-- `jq` — JSON parsing (`brew install jq` / `apt install jq`)
-- Claude Code — for LLM-dependent steps (generate, quality validation)
+| Dependency | Install | Purpose |
+|---|---|---|
+| `jq` | `brew install jq` / `apt install jq` | JSON processing throughout |
+| `git` | pre-installed on most systems | Contributor detection |
+| `sh` (POSIX) | built-in | All scripts are POSIX-compatible |
+| Claude Code | [claude.ai/code](https://claude.ai/code) | LLM steps (generate, quality validate) |
+
+Install dependencies in one line (macOS):
+
+```bash
+brew install jq
+```
+
+## Contributing
+
+We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for development setup, coding standards, and pull request workflow.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Security
+
+To report a security vulnerability, please use [GitHub's private vulnerability reporting](SECURITY.md) instead of opening a public issue.
