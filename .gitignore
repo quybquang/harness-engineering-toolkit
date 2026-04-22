@@ -1,6 +1,7 @@
 # OS
 .DS_Store
 Thumbs.db
+*.lnk
 
 # Editor
 *.swp
@@ -9,13 +10,26 @@ Thumbs.db
 .idea/
 .vscode/
 *.sublime-*
+*.sublime-project
+*.sublime-workspace
+.vim/
+.nvimrc
 
 # Shell
 *.log
+*.log.*
 
 # Test artifacts
 tests/tmp/
 tests/output/
+*.tmp
+
+# Build artifacts
+build/
+dist/
 
 # ai researchs
 ai-researchs/
+
+# demo
+demo/
