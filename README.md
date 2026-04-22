@@ -1,6 +1,6 @@
 # Harness Engineering Toolkit
 
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![CI](https://github.com/quybquang/harness-engineering-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/quybquang/harness-engineering-toolkit/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/version-0.1.0-blue)](VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -51,7 +51,7 @@ Analogy: Agent = brain. Harness = nervous system.
 
 ```bash
 # 1. Install the toolkit
-git clone https://github.com/OWNER/REPO.git ~/tools/harness-engineering-toolkit
+git clone https://github.com/quybquang/harness-engineering-toolkit.git ~/tools/harness-engineering-toolkit
 cd ~/tools/harness-engineering-toolkit
 ./install.sh
 
