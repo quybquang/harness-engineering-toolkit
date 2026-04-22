@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage Questions & Discussions
+    url: https://github.com/yourusername/harness-engineering-toolkit/discussions
+    about: Ask questions, share ideas, or discuss best practices.
+  - name: Documentation
+    url: https://github.com/yourusername/harness-engineering-toolkit/blob/main/docs/USAGE.md
+    about: Check the detailed usage guide before opening an issue.

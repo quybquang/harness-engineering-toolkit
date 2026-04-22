@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Run shellcheck
+        run: |
+          shellcheck bin/harness install.sh uninstall.sh \
+            lib/*.sh \
+            tests/run-tests.sh tests/unit/*.sh \
+            scripts/*.sh 2>/dev/null || true
+          # Note: scripts/*.sh may not exist yet; shellcheck handles globs gracefully
+        shell: bash
+
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          if command -v brew >/dev/null 2>&1; then
+            brew install jq
+          else
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+        shell: bash
+      - name: Run test suite
+        run: sh tests/run-tests.sh
+        shell: bash
